@@ -9,5 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Send message to Teams
+      # Message content is in Markdown format
+      # Message content includes a link to the issue
       run: |
-        curl -H "Content-Type: application/json" -d '{"text":"Issue #${{ github.event.issue.number }} titled _${{ github.event.issue.title }}_ has been closed!"}' ${{ secrets.TEAMS_WEBHOOK_URL }}
+        curl -H "Content-Type: application/json" -d "{\"text\": \"Issue closed: [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})\"}" ${{ secrets.TEAMS_WEBHOOK_URL }}
