@@ -1,0 +1,13 @@
+name: Notify Teams on Issue Close
+
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send message to Teams
+      run: |
+        curl -H "Content-Type: application/json" -d '{"text":"Issue #${{ github.event.issue.number }} titled _${{ github.event.issue.title }}_ has been closed!"}' ${{ secrets.TEAMS_WEBHOOK_URL }}
